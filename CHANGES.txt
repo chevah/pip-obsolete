@@ -1,6 +1,14 @@
 Changelog
 =========
 
+1.4.1-c3 (2013-12-14)
+---------------------
+
+* Remove O_NOFOLLOW to work on AIX.
+* Remove index from the list when it was not reachable once.
+* Add install hook.
+
+
 1.4.1 (2013-08-07)
 ------------------
 
