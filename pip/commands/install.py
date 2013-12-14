@@ -146,6 +146,13 @@ class InstallCommand(Command):
 
         cmd_opts.add_option(cmdoptions.no_clean)
 
+        self.parser.add_option(
+            '--install-hook',
+            dest='install_hook',
+            metavar='HOOK_MODULE',
+            default='',
+            help='Run hook module after package install.')
+
         index_opts = cmdoptions.make_option_group(cmdoptions.index_group, self.parser)
 
         self.parser.insert_option_group(0, index_opts)
@@ -238,7 +245,11 @@ class InstallCommand(Command):
                 requirement_set.locate_files()
 
             if not options.no_install and not self.bundle:
-                requirement_set.install(install_options, global_options, root=options.root_path)
+                requirement_set.install(
+                    install_options, global_options,
+                    root=options.root_path,
+                    install_hook=options.install_hook,
+                    )
                 installed = ' '.join([req.name for req in
                                       requirement_set.successfully_installed])
                 if installed:
