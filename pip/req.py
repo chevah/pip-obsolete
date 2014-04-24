@@ -581,6 +581,7 @@ exec(compile(open(__file__).read().replace('\\r\\n', '\\n'), __file__, 'exec'))
                 logger.notify('Record file %s not found' % record_filename)
                 return
             self.install_succeeded = True
+
             f = open(record_filename)
             for line in f:
                 line = line.strip()
@@ -588,11 +589,13 @@ exec(compile(open(__file__).read().replace('\\r\\n', '\\n'), __file__, 'exec'))
                     egg_info_dir = line
                     break
             else:
+                f.close()
                 logger.warn('Could not find .egg-info directory in install record for %s' % self)
                 ## FIXME: put the record somewhere
                 ## FIXME: should this be an error?
                 return
             f.close()
+
             new_lines = []
             f = open(record_filename)
             for line in f:
@@ -601,6 +604,7 @@ exec(compile(open(__file__).read().replace('\\r\\n', '\\n'), __file__, 'exec'))
                     filename += os.path.sep
                 new_lines.append(make_path_relative(filename, egg_info_dir))
             f.close()
+
             f = open(os.path.join(egg_info_dir, 'installed-files.txt'), 'w')
             f.write('\n'.join(new_lines)+'\n')
             f.close()
