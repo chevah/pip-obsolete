@@ -27,7 +27,7 @@ long_description = "\n" + "\n".join([read('PROJECT.txt'),
 tests_require = ['nose>=1.3.0', 'virtualenv>=1.10', 'scripttest>=1.1.1', 'mock']
 
 setup(name="pip",
-      version=find_version('pip', '__init__.py'),
+      version=find_version('pip', '__init__.py') + '.c4',
       description="A tool for installing and managing Python packages.",
       long_description=long_description,
       classifiers=[
